@@ -1,0 +1,57 @@
+<div class="container mt-5">
+  <div class="card shadow p-4">
+    <h2 class="card-title text-center mb-4">Editar Flag</h2>
+    <form (ngSubmit)="updateFlag()">
+      <div class="mb-3">
+        <label for="flag" class="form-label">Nombre del Flag</label>
+        <input
+          type="text"
+          id="flag"
+          class="form-control"
+          placeholder="Introduce el nuevo nombre del flag"
+          [(ngModel)]="flagName"
+          name="flag"
+          required
+        />
+      </div>
+      <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-primary" [disabled]="!flagName">
+          Update
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="goBack()">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+<!--
+<div class="container mt-5">
+  <div class="card shadow p-4">
+    <h2 class="card-title text-center mb-4">Editar Flag</h2>
+    <form (ngSubmit)="updateFlag()">
+      <div class="mb-3">
+        <label for="flag" class="form-label">Nombre del Flag</label>
+        <input
+          type="text"
+          id="flag"
+          class="form-control"
+          placeholder="Introduce el nuevo nombre del flag"
+          [(ngModel)]="flagName"
+          name="flag"
+          required
+        />
+      </div>
+      <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-primary" [disabled]="!flagName">
+          Update
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="goBack()">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+-->

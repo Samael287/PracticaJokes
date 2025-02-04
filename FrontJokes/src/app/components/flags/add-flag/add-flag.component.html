@@ -1,0 +1,18 @@
+<form class="container mt-4" (ngSubmit)="addFlag()">
+    <div class="card p-3 mt-4">
+      <h3 class="card-title">Añadir Nuevo Flag</h3>
+      <div class="input-group">
+        <input
+          type="text"
+          placeholder="Nombre del flag"
+          [(ngModel)]="newFlag.flag"
+          name="flag"
+          class="form-control"
+          required
+        />
+        <button type="submit" class="btn btn-success">
+          Añadir
+        </button>
+      </div>
+    </div>
+  </form>  

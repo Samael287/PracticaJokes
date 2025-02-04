@@ -1,0 +1,68 @@
+<div class="container mt-4">
+  <h2 class="text-center text-primary mb-4">Listado de Jokes con Primera Vez</h2>
+
+  <!-- Input para búsqueda en tiempo real -->
+  <div class="d-flex justify-content-center mb-3">
+      <input type="text" [(ngModel)]="searchText" (keyup)="filtrarJokes()"
+          placeholder="Buscar por text1..." class="form-control search-input w-50">
+  </div>
+
+  <!-- Botones para filtrar jokes -->
+  <div class="d-flex justify-content-center mb-3">
+      <button class="btn btn-outline-primary me-2" (click)="filtrarPorPrimeraVez('todos')">Todos</button>
+      <button class="btn btn-outline-success me-2" (click)="filtrarPorPrimeraVez('conPrimeraVez')">Con Primera Vez</button>
+      <button class="btn btn-outline-danger" (click)="filtrarPorPrimeraVez('sinPrimeraVez')">Sin Primera Vez</button>
+  </div>
+
+  <div class="table-responsive">
+      <table class="table table-hover table-bordered">
+          <thead class="table-dark">
+              <tr>
+                  <th>ID</th>
+                  <th>Idioma</th>
+                  <th>Categoría</th>
+                  <th>Tipo</th>
+                  <th>Texto 1</th>
+                  <th>Texto 2</th>
+                  <th>Flags</th>
+                  <th>Primera Vez (ID)</th>
+                  <th>Programa</th>
+                  <th>Fecha Emisión</th>
+                  <th>Teléfonos</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let joke of filteredJokes" class="table-light">
+                  <td><strong>{{ joke.id }}</strong></td>
+                  <td>{{ joke.language }}</td>
+                  <td>{{ joke.categories }}</td>
+                  <td>{{ joke.types }}</td>
+                  <td>{{ joke.text1 ?? 'Sin texto 1' }}</td>
+                  <td>{{ joke.text2 ?? 'Sin texto 2' }}</td>
+                  <td>
+                      <ul class="list-unstyled m-0">
+                          <li *ngFor="let flag of joke.flagses" class="badge bg-secondary me-1">{{ flag }}</li>
+                      </ul>
+                  </td>
+
+                  <!-- Primera Vez -->
+                  <td *ngIf="joke.primeraVez"><span class="badge bg-info">{{ joke.primeraVez?.id }}</span></td>
+                  <td *ngIf="joke.primeraVez">{{ joke.primeraVez?.programa }}</td>
+                  <td *ngIf="joke.primeraVez">{{ joke.primeraVez?.fechaEmision }}</td>
+                  <td *ngIf="joke.primeraVez">
+                      <ul class="list-unstyled">
+                          <li *ngFor="let tel of joke.primeraVez?.telefonos" class="text-success fw-bold">
+                              📞 {{ tel }}
+                          </li>
+                      </ul>
+                  </td>
+
+                  <!-- Si no tiene Primera Vez -->
+                  <td *ngIf="!joke.primeraVez" colspan="4" class="text-center text-danger fw-bold">
+                      ❌ Sin Primera Vez
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<div class="container mt-5">
+    <div class="card p-4">
+      <h2 class="text-center">{{ editMode ? 'Editar Primera Vez' : 'Registrar Primera Vez' }}</h2>
+  
+      <form [formGroup]="primeraVezForm" (ngSubmit)="submitPrimeraVez()">
+        
+        <!-- Selección del chiste -->
+        <div class="mb-3">
+          <label class="form-label fw-bold">Selecciona un Chiste</label>
+          <select class="form-select" formControlName="joke">
+            <option *ngFor="let joke of jokes" [value]="joke.id">
+              {{ joke.text1 }} - {{ joke.text2 }}
+            </option>
+          </select>
+        </div>
+  
+        <!-- Programa -->
+        <div class="mb-3">
+          <label class="form-label fw-bold">Programa de TV</label>
+          <input type="text" class="form-control" formControlName="programa">
+        </div>
+  
+        <!-- Fecha de emisión -->
+        <div class="mb-3">
+          <label class="form-label fw-bold">Fecha de Emisión</label>
+          <input type="date" class="form-control" formControlName="fechaEmision">
+        </div>
+  
+        <!-- Teléfonos -->
+        <div class="mb-3">
+          <label class="form-label fw-bold">Números de Teléfono</label>
+          <div formArrayName="telefonos">
+            <div *ngFor="let telControl of telefonosArray.controls; let i = index" class="d-flex">
+              <input type="text" class="form-control me-2" [formControlName]="i" placeholder="Ej: 612345678">
+              <button type="button" class="btn btn-danger" (click)="eliminarTelefono(i)" *ngIf="telefonosArray.length > 1">X</button>
+            </div>
+          </div>
+          <button type="button" class="btn btn-secondary mt-2" (click)="agregarTelefono()">+ Añadir Teléfono</button>
+        </div>
+  
+        <!-- Botón de enviar -->
+        <button type="submit" class="btn btn-primary w-100">{{ editMode ? 'Actualizar' : 'Guardar' }}</button>
+      </form>
+    </div>
+  
+    <hr>
+  
+    <button class="btn btn-info w-100 mt-4" (click)="toggleListaPrimeraVez()">
+      {{ showPrimeraVez ? 'Ocultar Primera Vez' : 'Mostrar Primera Vez' }}
+    </button>
+  
+    <div *ngIf="showPrimeraVez">
+      <h3 class="text-center mt-4">Lista de Primeras Veces</h3>
+      <table class="table table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Programa</th>
+            <th>Fecha Emisión</th>
+            <th>Teléfonos</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let primera of primeraVezList">
+            <td>{{ primera.id }}</td>
+            <td>{{ primera.programa }}</td>
+            <td>{{ primera.fechaEmision }}</td>
+            <td>
+              <ul class="list-unstyled">
+                <li *ngFor="let tel of primera.telefonos">{{ tel.numero }}</li>
+              </ul>
+            </td>
+            <td>
+              <button class="btn btn-warning btn-sm me-2" (click)="editarPrimeraVez(primera)">Editar</button>
+              <button class="btn btn-danger btn-sm" (click)="eliminarPrimeraVez(primera.id!)">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

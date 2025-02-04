@@ -1,0 +1,115 @@
+<div class="container mt-5">
+  <div class="card shadow-lg p-4">
+    <h2 class="card-title text-center mb-4">Editar Chiste</h2>
+    <form [formGroup]="jokeForm" (ngSubmit)="saveJoke()">
+
+      <!-- Idioma -->
+      <div class="mb-4">
+        <label for="language" class="form-label fw-bold">Idioma</label>
+        <select
+          formControlName="language"
+          class="form-select"
+          id="language"
+        >
+          <option *ngFor="let lang of languages" [value]="lang.id">
+            {{ lang.language }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Categoría -->
+      <div class="mb-4">
+        <label for="categories" class="form-label fw-bold">Categoría</label>
+        <select
+          formControlName="categories"
+          class="form-select"
+          id="categories"
+        >
+          <option *ngFor="let cat of categories" [value]="cat.id">
+            {{ cat.category }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Tipo -->
+      <div class="mb-4">
+        <label for="type" class="form-label fw-bold">Tipo</label>
+        <select
+          formControlName="type"
+          class="form-select"
+          id="type"
+        >
+          <option *ngFor="let type of types" [value]="type.id">
+            {{ type.type }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Texto 1 -->
+      <div class="mb-4">
+        <label for="text1" class="form-label fw-bold">Texto 1</label>
+        <input
+          formControlName="text1"
+          type="text"
+          class="form-control"
+          id="text1"
+          placeholder="Ingrese la primera parte del chiste"
+        />
+      </div>
+
+      <!-- Texto 2 -->
+      <div class="mb-4">
+        <label for="text2" class="form-label fw-bold">Texto 2</label>
+        <input
+          formControlName="text2"
+          type="text"
+          class="form-control"
+          id="text2"
+          placeholder="Ingrese la segunda parte del chiste (si aplica)"
+        />
+      </div>
+
+      <!-- Flags -->
+      <div class="mb-4">
+        <label class="form-label fw-bold">Flags</label>
+        <div class="d-flex flex-wrap gap-3">
+          <div
+            *ngFor="let flag of flags"
+            class="form-check"
+          >
+            <input
+              type="checkbox"
+              class="form-check-input"
+              [checked]="isFlagSelected(flag.id)"
+              (change)="toggleFlag(flag.id)"
+              id="flag-{{ flag.id }}"
+            />
+            <label
+              class="form-check-label"
+              for="flag-{{ flag.id }}"
+            >
+              {{ flag.flag }}
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botones -->
+      <div class="d-flex justify-content-between">
+        <button
+          type="submit"
+          class="btn btn-primary px-5"
+        >
+          Guardar
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary px-5"
+          (click)="navigateToJokes()"
+        >
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

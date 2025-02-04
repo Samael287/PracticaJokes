@@ -1,0 +1,103 @@
+<div class="container mt-5">
+    <div class="card shadow p-4">
+      <h2 class="card-title text-center mb-4">Gestión de Idiomas</h2>
+  
+      <!-- Barra de búsqueda -->
+      <div class="mb-4">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Buscar idiomas..."
+          [(ngModel)]="searchTerm"
+          (input)="onSearch()"
+        />
+      </div>
+  
+      <!-- Tabla de idiomas -->
+      <table class="table table-striped table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Código</th>
+            <th>Idioma</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let language of filteredLanguages">
+            <td>{{ language.id }}</td>
+            <td>{{ language.code }}</td>
+            <td>{{ language.language }}</td>
+            <td>
+              <button
+                class="btn btn-warning btn-sm me-2"
+                (click)="editarIdioma(language)"
+              >
+                Editar
+              </button>
+              <button
+                class="btn btn-danger btn-sm"
+                (click)="eliminarIdioma(language.id)"
+              >
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <!-- Botón para añadir idioma -->
+      <div class="text-center mt-4">
+        <button class="btn btn-primary" (click)="abrirFormularioAnadir()">
+          Añadir Idioma
+        </button>
+      </div>
+    </div>
+  
+    <!-- Formulario modal -->
+    <div
+      *ngIf="mostrandoFormulario"
+      class="modal fade show d-block"
+      style="background-color: rgba(0, 0, 0, 0.5);"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              {{ isEditing ? 'Editar Idioma' : 'Añadir Idioma' }}
+            </h5>
+            <button type="button" class="btn-close" (click)="cerrarFormulario()"></button>
+          </div>
+          <div class="modal-body">
+            <form (ngSubmit)="guardarIdioma()">
+              <div class="mb-3">
+                <label for="codigoIdioma" class="form-label">Código</label>
+                <input
+                  type="text"
+                  id="codigoIdioma"
+                  class="form-control"
+                  [(ngModel)]="idiomaActual.code"
+                  name="codigoIdioma"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="nombreIdioma" class="form-label">Idioma</label>
+                <input
+                  type="text"
+                  id="nombreIdioma"
+                  class="form-control"
+                  [(ngModel)]="idiomaActual.language"
+                  name="nombreIdioma"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Guardar</button>
+              <button type="button" class="btn btn-secondary" (click)="cerrarFormulario()">Cancelar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

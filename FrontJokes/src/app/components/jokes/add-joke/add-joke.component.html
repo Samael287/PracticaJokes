@@ -1,0 +1,110 @@
+<div class="container mt-5">
+  <div class="card shadow-lg p-4">
+    <h2 class="card-title text-center mb-4">Añadir Nuevo Chiste</h2>
+    <form [formGroup]="jokeForm" (ngSubmit)="submitJoke()">
+
+      <!-- Idioma -->
+      <div class="mb-4">
+        <label for="language" class="form-label fw-bold">Idioma</label>
+        <select
+          id="language"
+          class="form-select"
+          formControlName="language"
+        >
+          <option [value]="null">-- Seleccione un idioma --</option>
+          <option *ngFor="let language of languages" [value]="language.id">
+            {{ language.language }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Categoría -->
+      <div class="mb-4">
+        <label for="categories" class="form-label fw-bold">Categoría</label>
+        <select
+          id="categories"
+          class="form-select"
+          formControlName="categories"
+          (ngModelChange)="onSelectionChange('categories', $event)"
+        >
+          <option [value]="null">-- Seleccione una categoría --</option>
+          <option *ngFor="let category of categories" [value]="category.id">
+            {{ category.category }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Tipo -->
+      <div class="mb-4">
+        <label for="type" class="form-label fw-bold">Tipo</label>
+        <select id="type" class="form-select" formControlName="type">
+          <option [value]="null">-- Seleccione un tipo --</option>
+          <option *ngFor="let type of types" [value]="type.id">
+            {{ type.type }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Texto 1 -->
+      <div class="mb-4">
+        <label for="text1" class="form-label fw-bold">Texto 1</label>
+        <input
+          id="text1"
+          type="text"
+          class="form-control"
+          placeholder="Escriba el primer texto del chiste"
+          formControlName="text1"
+        />
+      </div>
+
+      <!-- Texto 2 -->
+      <div class="mb-4">
+        <label for="text2" class="form-label fw-bold">Texto 2</label>
+        <input
+          id="text2"
+          type="text"
+          class="form-control"
+          placeholder="Escriba el segundo texto del chiste (opcional)"
+          formControlName="text2"
+        />
+      </div>
+
+      <!-- Flags -->
+      <div class="mb-4">
+        <label class="form-label fw-bold">Flags</label>
+        <div class="d-flex flex-wrap gap-3">
+          <div
+            class="form-check"
+            *ngFor="let flag of flags"
+          >
+            <input
+              type="checkbox"
+              class="form-check-input"
+              [value]="flag.id"
+              (change)="onFlagChange($event)"
+            />
+            <label class="form-check-label">{{ flag.flag }}</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Botones -->
+      <div class="d-flex justify-content-between">
+        <button
+          type="submit"
+          class="btn btn-primary px-4"
+          [disabled]="jokeForm.invalid"
+        >
+          Añadir Chiste
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary px-4"
+          (click)="navigateToJokes()"
+        >
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

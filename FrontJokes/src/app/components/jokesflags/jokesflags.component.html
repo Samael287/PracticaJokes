@@ -1,0 +1,43 @@
+<div class="container mt-4">
+    <h2 class="text-center text-primary mb-4">Flags con Jokes Asociados</h2>
+
+    <!-- Input para búsqueda en tiempo real -->
+    <div class="d-flex justify-content-center mb-3">
+        <input type="text" [(ngModel)]="searchText" (keyup)="filterFlags()"
+            placeholder="Buscar por flag..." class="form-control search-input w-50">
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID Flag</th>
+                    <th>Nombre del Flag</th>
+                    <th>Jokes Asociados</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let flag of filteredFlags" class="table-light">
+                    <td><strong>{{ flag.id }}</strong></td>
+                    <td>{{ flag.flag }}</td>
+
+                    <td>
+                        <!-- ✅ Si hay jokes asociados, los mostramos -->
+                        <ul *ngIf="flag.jokes && flag.jokes.length > 0" class="list-group">
+                            <li *ngFor="let joke of flag.jokes" class="list-group-item d-flex flex-column">
+                                <strong class="text-primary">📌 ID:</strong> {{ joke.id }}
+                                <strong class="text-success">📜 Texto 1:</strong> {{ joke.text1 }}
+                                <strong class="text-warning">🌍 Idioma:</strong> {{ joke.language }}
+                            </li>
+                        </ul>
+
+                        <!-- ❌ Si no hay jokes, mostrar un mensaje -->
+                        <p *ngIf="!flag.jokes || flag.jokes.length === 0" class="text-muted text-center">
+                            No hay jokes asociados
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

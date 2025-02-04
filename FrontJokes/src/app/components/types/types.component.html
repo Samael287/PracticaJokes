@@ -1,0 +1,75 @@
+<div class="container mt-5">
+    <div class="card shadow p-4">
+      <h2 class="card-title text-center mb-4">Gestión de Tipos</h2>
+  
+      <!-- Barra de búsqueda -->
+      <div class="mb-4">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Buscar tipos..."
+          [(ngModel)]="searchTerm"
+          (input)="onSearch()"
+        />
+      </div>
+  
+      <!-- Tabla de tipos -->
+      <table class="table table-striped table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Tipo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let type of filteredTypes">
+            <td>{{ type.id }}</td>
+            <td>{{ type.type }}</td>
+            <td>
+              <button class="btn btn-warning btn-sm me-2" (click)="editarTipo(type)">
+                Editar
+              </button>
+              <button class="btn btn-danger btn-sm" (click)="eliminarTipo(type.id)">
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <!-- Botón para añadir tipo -->
+      <div class="text-center mt-4">
+        <button class="btn btn-primary" (click)="abrirFormularioAnadir()">
+          Añadir Tipo
+        </button>
+      </div>
+    </div>
+  
+    <!-- Formulario de añadir/editar -->
+    <div *ngIf="mostrandoFormulario" class="modal-overlay">
+      <div class="modal-content-small">
+        <h3 class="text-center">{{ isEditing ? 'Editar Tipo' : 'Añadir Tipo' }}</h3>
+        <form (ngSubmit)="guardarTipo()">
+          <div class="mb-3">
+            <label for="nombreTipo" class="form-label">Nombre</label>
+            <input
+              type="text"
+              id="nombreTipo"
+              class="form-control"
+              [(ngModel)]="tipoActual.type"
+              name="nombreTipo"
+              required
+            />
+          </div>
+          <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="button" class="btn btn-secondary" (click)="cerrarFormulario()">
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
